@@ -1,0 +1,227 @@
+<Activity mc:Ignorable="sap sap2010 sads" x:Class="Sequence2" sap2010:WorkflowViewState.IdRef="Sequence7_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:adac="clr-namespace:ArenaRobotics.Dialog.Activities.Controllers;assembly=ArenaRobotics.Dialog.Activities"
+ xmlns:adac1="clr-namespace:ArenaRobotics.Debug.Activities.Controllers;assembly=ArenaRobotics.Debug.Activities"
+ xmlns:apacl="clr-namespace:ArenaRobotics.Programming.Activities.Controllers.Loops;assembly=ArenaRobotics.Programming.Activities"
+ xmlns:awac="clr-namespace:ArenaRobotics.Workflow.Activities.Controllers;assembly=ArenaRobotics.Workflow.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>ArenaRobotics.Domain.Entities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>ArenaRobotics.Domain</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Dizi">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="inputDateString" />
+      <Variable x:TypeArguments="s:DateTime" Default="[DateTime.MinValue]" Name="inputDate" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="isValidDate" />
+    </Sequence.Variables>
+    <apacl:BreakableDoWhile Condition="[Not isValidDate]" DelayBetween="200" DisplayName="Tarih formatı doğru girilene kadar kullanıcıdan tarih alır.">
+      <apacl:BreakableDoWhile.DelayAction>
+        <ActivityAction x:TypeArguments="x:TimeSpan" Argument="{x:Reference __ReferenceID0}">
+          <Delay>
+            <InArgument x:TypeArguments="x:TimeSpan">
+              <DelegateArgumentValue x:TypeArguments="x:TimeSpan">
+                <DelegateInArgument x:TypeArguments="x:TimeSpan" x:Name="__ReferenceID0" Name="delayDuration" />
+              </DelegateArgumentValue>
+            </InArgument>
+          </Delay>
+        </ActivityAction>
+      </apacl:BreakableDoWhile.DelayAction>
+      <apacl:BreakableDoWhile.Variables>
+        <Variable x:TypeArguments="x:Int32" Default="0" Name="Index" />
+        <Variable x:TypeArguments="x:Int32" Default="0" Name="Total" />
+      </apacl:BreakableDoWhile.Variables>
+      <Sequence>
+        <adac:InputDialog InputOptions="{x:Null}" Options="{x:Null}" DisplayName="Kullanıcıdan tarih bilgisini alır." IsPassword="False" Label="Lütfen tarihi giriniz:" Result="[inputDateString]" Title="tarih giriniz (gg.aa.yyyy)" Type="0" sap2010:WorkflowViewState.IdRef="InputDialog_2" />
+        <TryCatch DisplayName="Girilen tarihi DateTime'a çevirmeye çalışır.">
+          <TryCatch.Try>
+            <Sequence>
+              <Assign DisplayName="Tarihi DateTime formatına çevirir.">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:DateTime">[inputDate]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(inputDateString, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                </Assign.Value>
+                <sap2010:WorkflowViewState.IdRef>Assign_2</sap2010:WorkflowViewState.IdRef>
+              </Assign>
+              <Assign DisplayName="Tarih formatı doğruysa döngüden çıkılır.">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[isValidDate]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                </Assign.Value>
+                <sap2010:WorkflowViewState.IdRef>Assign_3</sap2010:WorkflowViewState.IdRef>
+              </Assign>
+              <sap2010:WorkflowViewState.IdRef>Sequence_5</sap2010:WorkflowViewState.IdRef>
+            </Sequence>
+          </TryCatch.Try>
+          <TryCatch.Catches>
+            <Catch x:TypeArguments="s:Exception">
+              <ActivityAction x:TypeArguments="s:Exception">
+                <Sequence>
+                  <adac1:LogMessage DisplayName="Tarih formatı hatalıysa uyarı mesajı yazar." LogLevel="2" Message="[&quot;Tarih formatı hatalı, lütfen tekrar deneyiniz.&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_4" />
+                  <Assign DisplayName="Tarih formatı hatalıysa döngü devam eder.">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Boolean">[isValidDate]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                    </Assign.Value>
+                    <sap2010:WorkflowViewState.IdRef>Assign_4</sap2010:WorkflowViewState.IdRef>
+                  </Assign>
+                  <sap2010:WorkflowViewState.IdRef>Sequence_6</sap2010:WorkflowViewState.IdRef>
+                </Sequence>
+              </ActivityAction>
+              <sap2010:WorkflowViewState.IdRef>Catch`1_1</sap2010:WorkflowViewState.IdRef>
+            </Catch>
+          </TryCatch.Catches>
+          <sap2010:WorkflowViewState.IdRef>TryCatch_1</sap2010:WorkflowViewState.IdRef>
+        </TryCatch>
+        <sap2010:WorkflowViewState.IdRef>Sequence_7</sap2010:WorkflowViewState.IdRef>
+      </Sequence>
+      <sap2010:WorkflowViewState.IdRef>BreakableDoWhile_1</sap2010:WorkflowViewState.IdRef>
+    </apacl:BreakableDoWhile>
+    <awac:If Condition="[inputDate &lt; DateTime.Today]" DisplayName="Girilen tarih bugünden küçükse">
+      <awac:If.ElseBody>
+        <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="ElseBody">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+          </ActivityAction.Argument>
+          <Sequence>
+            <adac1:LogMessage DisplayName="Konsola ileri tarih mesajı yazar." LogLevel="1" Message="[&quot;ileri tarih seçildi&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_5" />
+            <sap2010:WorkflowViewState.IdRef>Sequence_8</sap2010:WorkflowViewState.IdRef>
+          </Sequence>
+        </ActivityAction>
+      </awac:If.ElseBody>
+      <awac:If.IfBody>
+        <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="IfBody">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+          </ActivityAction.Argument>
+          <Sequence>
+            <adac1:LogMessage DisplayName="Konsola geçmiş tarih mesajı yazar." LogLevel="1" Message="[&quot;geçmiş bir tarih girdiniz&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_6" />
+            <sap2010:WorkflowViewState.IdRef>Sequence_9</sap2010:WorkflowViewState.IdRef>
+          </Sequence>
+        </ActivityAction>
+      </awac:If.IfBody>
+      <sap2010:WorkflowViewState.IdRef>If_2</sap2010:WorkflowViewState.IdRef>
+    </awac:If>
+    <adac1:LogMessage DisplayName="Konsola tarih kontrolü tamamlandı mesajı yazar." LogLevel="1" Message="[&quot;tarih kontrolü tamamlandı&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_7" />
+    <sap2010:WorkflowViewState.IdRef>Sequence_10</sap2010:WorkflowViewState.IdRef>
+    <sads:DebugSymbol.Symbol>dw1DOlxFbXB0eS54YW1sAA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InputDialog_2" sap:VirtualizedContainerService.HintSize="694.4,337.6" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="641.6,92" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="641.6,92" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="670.4,360.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="641.6,175.2" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="641.6,92" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="228.8,219.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="673.6,22.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="694.4,604" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="723.2,1118.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BreakableDoWhile_1" sap:VirtualizedContainerService.HintSize="764.8,1285.6" />
+      <sap2010:ViewStateData Id="LogMessage_5" sap:VirtualizedContainerService.HintSize="327.2,175.2" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="356,312">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_6" sap:VirtualizedContainerService.HintSize="327.2,175.2" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="356,312">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="764.8,541.6" />
+      <sap2010:ViewStateData Id="LogMessage_7" sap:VirtualizedContainerService.HintSize="764.8,175.2" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="793.6,2219.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence7_1" sap:VirtualizedContainerService.HintSize="833.6,2299.2" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
