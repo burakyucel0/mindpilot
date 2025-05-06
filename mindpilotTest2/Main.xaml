@@ -1,0 +1,138 @@
+<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" sap2010:WorkflowViewState.IdRef="Sequence7_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:acac="clr-namespace:ArenaRobotics.ComputerVision.Activities.Controllers;assembly=ArenaRobotics.ComputerVision.Activities"
+ xmlns:adac="clr-namespace:ArenaRobotics.Debug.Activities.Controllers;assembly=ArenaRobotics.Debug.Activities"
+ xmlns:ade="clr-namespace:ArenaRobotics.Domain.Entities;assembly=ArenaRobotics.Domain"
+ xmlns:awac="clr-namespace:ArenaRobotics.Workflow.Activities.Controllers;assembly=ArenaRobotics.Workflow.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>ArenaRobotics.Domain.Entities</x:String>
+      <x:String>Microsoft.Graph</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>ArenaRobotics.Domain</AssemblyReference>
+      <AssemblyReference>Microsoft.Graph</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Sequence" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence>
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Default="C:\Documents\OKTReports\OKTFile.pdf" Name="filePath" />
+        <Variable x:TypeArguments="x:String" Default="OKT123" Name="searchText" />
+        <Variable x:TypeArguments="scg:IEnumerable(ade:OCRCoordinate)" Name="oktCoordinate" />
+        <Variable x:TypeArguments="x:Boolean" Default="True" Name="isScanned" />
+        <Variable x:TypeArguments="x:String" Name="foundText" />
+      </Sequence.Variables>
+      <acac:FindOCRTextPositionWithFile ConfigType="3" FPoint="1" IsScanned="[isScanned]" LanguageType="2" Output="[oktCoordinate]" Path="[filePath]" Text="[searchText]" sap2010:WorkflowViewState.IdRef="FindOCRTextPositionWithFile_1" />
+      <acac:GetOCRTextWithFile ConfigType="3" FPoint="1" IsScanned="[isScanned]" LanguageType="2" Path="[filePath]" Text="[foundText]" sap2010:WorkflowViewState.IdRef="GetOCRTextWithFile_1" />
+      <awac:If Condition="[foundText.Contains(searchText)]">
+        <awac:If.ElseBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="ElseBody">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+            </ActivityAction.Argument>
+            <Sequence>
+              <adac:WriteLine Text="Text verification failed." sap2010:WorkflowViewState.IdRef="WriteLine_1" />
+              <sap2010:WorkflowViewState.IdRef>Sequence_2</sap2010:WorkflowViewState.IdRef>
+            </Sequence>
+          </ActivityAction>
+        </awac:If.ElseBody>
+        <awac:If.IfBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="IfBody">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+            </ActivityAction.Argument>
+            <Sequence>
+              <adac:WriteLine Text="Text 'OKT123' successfully detected and verified." sap2010:WorkflowViewState.IdRef="WriteLine_2" />
+              <sap2010:WorkflowViewState.IdRef>Sequence_3</sap2010:WorkflowViewState.IdRef>
+            </Sequence>
+          </ActivityAction>
+        </awac:If.IfBody>
+        <sap2010:WorkflowViewState.IdRef>If_1</sap2010:WorkflowViewState.IdRef>
+      </awac:If>
+      <sap2010:WorkflowViewState.IdRef>Sequence_4</sap2010:WorkflowViewState.IdRef>
+    </Sequence>
+    <sads:DebugSymbol.Symbol>dw1DOlxFbXB0eS54YW1sAA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="FindOCRTextPositionWithFile_1" sap:VirtualizedContainerService.HintSize="570,373" />
+      <sap2010:ViewStateData Id="GetOCRTextWithFile_1" sap:VirtualizedContainerService.HintSize="570,300" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="200,102" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="214,224">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="310,102" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="316,224">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="570,438" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="584,1313">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="598,1435">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence7_1" sap:VirtualizedContainerService.HintSize="638,1515" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

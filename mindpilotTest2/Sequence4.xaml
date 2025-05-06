@@ -1,0 +1,155 @@
+<Activity mc:Ignorable="sap sap2010 sads" x:Class="Sequence4" sap2010:WorkflowViewState.IdRef="Sequence7_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:adac="clr-namespace:ArenaRobotics.Dialog.Activities.Controllers;assembly=ArenaRobotics.Dialog.Activities"
+ xmlns:adac1="clr-namespace:ArenaRobotics.Debug.Activities.Controllers;assembly=ArenaRobotics.Debug.Activities"
+ xmlns:asac="clr-namespace:ArenaRobotics.String.Activities.Controllers;assembly=ArenaRobotics.String.Activities"
+ xmlns:awac="clr-namespace:ArenaRobotics.Workflow.Activities.Controllers;assembly=ArenaRobotics.Workflow.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>ArenaRobotics.Domain.Entities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>ArenaRobotics.Domain</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Dizi">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="inputText" />
+      <Variable x:TypeArguments="str:Match" Name="phoneMatch" />
+      <Variable x:TypeArguments="x:String" Name="phoneNumber" />
+    </Sequence.Variables>
+    <adac:InputDialog InputOptions="{x:Null}" Options="{x:Null}" DisplayName="Kullanıcıdan serbest metin alınır." IsPassword="False" Label="Lütfen serbest metin giriniz:" Result="[inputText]" Title="Telefon Numarası Arama" Type="0" sap2010:WorkflowViewState.IdRef="InputDialog_3" />
+    <asac:Matches DisplayName="Regex ile 10 haneli telefon numarası aranır." Input="[inputText]" Pattern="\b\d{10}\b" RegexOptions="IgnoreCase,Compiled" Result="[phoneMatch]" sap2010:WorkflowViewState.IdRef="Matches_1" />
+    <awac:If Condition="[phoneMatch.Success]" DisplayName="Telefon numarası bulunduysa">
+      <awac:If.ElseBody>
+        <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="ElseBody">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+          </ActivityAction.Argument>
+          <Sequence>
+            <adac1:LogMessage DisplayName="Telefon numarası bulunamazsa konsola bilgi yazılır." LogLevel="1" Message="[&quot;telefon numarası bulunamadı&quot;]" />
+          </Sequence>
+        </ActivityAction>
+      </awac:If.ElseBody>
+      <awac:If.IfBody>
+        <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="IfBody">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+          </ActivityAction.Argument>
+          <Sequence>
+            <Assign DisplayName="Bulunan telefon numarası değişkene atanır.">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[phoneNumber]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[phoneMatch.Value]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <adac1:LogMessage DisplayName="Telefon numarası konsola yazılır." LogLevel="1" Message="[phoneNumber]" />
+          </Sequence>
+        </ActivityAction>
+      </awac:If.IfBody>
+      <sap2010:WorkflowViewState.IdRef>If_3</sap2010:WorkflowViewState.IdRef>
+    </awac:If>
+    <Sequence>
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="inputText" />
+        <Variable x:TypeArguments="str:Match" Name="phoneMatch" />
+        <Variable x:TypeArguments="x:String" Name="phoneNumber" />
+      </Sequence.Variables>
+      <adac:InputDialog InputOptions="{x:Null}" Options="{x:Null}" DisplayName="Kullanıcıdan serbest metin alınır." IsPassword="False" Label="Lütfen serbest metin giriniz:" Result="[inputText]" Title="Telefon Numarası Arama" Type="0" />
+      <asac:Matches DisplayName="Regex ile 10 haneli telefon numarası aranır." Input="[inputText]" Pattern="\b\d{10}\b" RegexOptions="IgnoreCase,Compiled" Result="[phoneMatch]" />
+      <awac:If Condition="[phoneMatch.Success]" DisplayName="Telefon numarası bulunduysa">
+        <awac:If.ElseBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="ElseBody">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+            </ActivityAction.Argument>
+            <Sequence>
+              <adac1:LogMessage DisplayName="Telefon numarası bulunamazsa konsola bilgi yazılır." LogLevel="1" Message="[&quot;telefon numarası bulunamadı&quot;]" />
+            </Sequence>
+          </ActivityAction>
+        </awac:If.ElseBody>
+        <awac:If.IfBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="IfBody">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+            </ActivityAction.Argument>
+            <Sequence>
+              <Assign DisplayName="Bulunan telefon numarası değişkene atanır.">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[phoneNumber]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[phoneMatch.Value]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <adac1:LogMessage DisplayName="Telefon numarası konsola yazılır." LogLevel="1" Message="[phoneNumber]" />
+            </Sequence>
+          </ActivityAction>
+        </awac:If.IfBody>
+      </awac:If>
+    </Sequence>
+    <sap2010:WorkflowViewState.IdRef>Sequence_11</sap2010:WorkflowViewState.IdRef>
+    <sads:DebugSymbol.Symbol>dw1DOlxFbXB0eS54YW1sAA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InputDialog_3" sap:VirtualizedContainerService.HintSize="449.6,337.6" />
+      <sap2010:ViewStateData Id="Matches_1" sap:VirtualizedContainerService.HintSize="449.6,186.4" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="449.6,249.6" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="478.4,1050.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence7_1" sap:VirtualizedContainerService.HintSize="518.4,1130.4" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

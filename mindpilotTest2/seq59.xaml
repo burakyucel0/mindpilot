@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Activity mc:Ignorable="sap sap2010 sads" x:Class="seq59" sap2010:WorkflowViewState.IdRef="Sequence7_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ade="clr-namespace:ArenaRobotics.Domain.Entities;assembly=ArenaRobotics.Domain" xmlns:auac="clr-namespace:ArenaRobotics.UIAutomation.Activities.Controllers;assembly=ArenaRobotics.UIAutomation.Activities" xmlns:awac="clr-namespace:ArenaRobotics.Workflow.Activities.Controllers;assembly=ArenaRobotics.Workflow.Activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>ArenaRobotics.Domain.Entities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>ArenaRobotics.Domain</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="c7246a26-bd42-45ce-808a-1ceb11eaac48" DisplayName="Sequence" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence>
+      <Sequence.Variables>
+        <Variable x:TypeArguments="ade:UIElement" Name="stokYonetimiPencere" />
+        <Variable x:TypeArguments="ade:UIElement" Name="aramaKutusu" />
+        <Variable x:TypeArguments="ade:UIElement" Name="kaydetButonu" />
+        <Variable x:TypeArguments="ade:UIElement" Name="islemTamamlandiOnayKutusu" />
+        <Variable x:TypeArguments="ade:UIElement" Name="duzenleButonu" />
+        <Variable x:TypeArguments="ade:UIElement" Name="tabloSatiri" />
+        <Variable x:TypeArguments="x:Boolean" Default="False" Name="isKaydetButonuMevcut" />
+      </Sequence.Variables>
+      <auac:AttachWindow AnchorSelector="{x:Null}" ApplicationWindow="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" Window="{x:Null}" AnchorFrom="0" Element="[stokYonetimiPencere]" Timeout="5000">
+        <auac:AttachWindow.Do>
+          <ActivityAction x:TypeArguments="ade:Window">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ade:Window" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Yap" sap2010:WorkflowViewState.IdRef="Sequence_2" />
+          </ActivityAction>
+        </auac:AttachWindow.Do>
+        <sap2010:WorkflowViewState.IdRef>AttachWindow_1</sap2010:WorkflowViewState.IdRef>
+      </auac:AttachWindow>
+      <auac:SetFocus AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" AnchorFrom="0" Element="[aramaKutusu]" Timeout="5000" sap2010:WorkflowViewState.IdRef="SetFocus_1" />
+      <auac:SetText AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" AnchorFrom="0" Element="[aramaKutusu]" Text="Ürün Adı" Timeout="5000" sap2010:WorkflowViewState.IdRef="SetText_1" />
+      <auac:FindChildren AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" AnchorFrom="0" Children="[kaydetButonu]" Element="[stokYonetimiPencere]" Scope="0" sap2010:WorkflowViewState.IdRef="FindChildren_1" />
+      <auac:ElementExist AnchorSelector="{x:Null}" ExisitingUiElement="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" Timeout="{x:Null}" Times="{x:Null}" AnchorFrom="0" ContinueOnError="False" DelayAfter="300" DelayBefore="200" Element="[kaydetButonu]" Exists="[isKaydetButonuMevcut]" sap2010:WorkflowViewState.IdRef="ElementExist_1" />
+      <awac:If Condition="[isKaydetButonuMevcut]">
+        <awac:If.ElseBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" Name="Else" />
+            </ActivityAction.Argument>
+          </ActivityAction>
+        </awac:If.ElseBody>
+        <awac:If.IfBody>
+          <ActivityAction x:TypeArguments="sd:DataRowView" DisplayName="IfBody">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRowView" />
+            </ActivityAction.Argument>
+            <Sequence>
+              <auac:Click AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" AnchorFrom="0" ClickType="0" DelayAfter="300" DelayBefore="200" Element="[kaydetButonu]" MouseButton="0" SimulateClick="False" Timeout="5000" UseRestoreAndSetForeground="True" sap2010:WorkflowViewState.IdRef="Click_1" />
+              <sap2010:WorkflowViewState.IdRef>Sequence_3</sap2010:WorkflowViewState.IdRef>
+            </Sequence>
+          </ActivityAction>
+        </awac:If.IfBody>
+        <sap2010:WorkflowViewState.IdRef>If_1</sap2010:WorkflowViewState.IdRef>
+      </awac:If>
+      <auac:Check AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" Action="0" AnchorFrom="0" DelayAfter="300" DelayBefore="200" Element="[islemTamamlandiOnayKutusu]" Timeout="5000" sap2010:WorkflowViewState.IdRef="Check_1" />
+      <auac:Click AnchorSelector="{x:Null}" ImageString="{x:Null}" PathToTheTarget="{x:Null}" Selector="{x:Null}" AnchorFrom="0" ClickType="0" DelayAfter="300" DelayBefore="200" Element="[duzenleButonu]" MouseButton="0" SimulateClick="False" Timeout="5000" UseRestoreAndSetForeground="True" sap2010:WorkflowViewState.IdRef="Click_2" />
+      <auac:AnchorBase ImageString="{x:Null}" AnchorFrom="0">
+        <auac:AnchorBase.Do>
+          <ActivityAction>
+            <Sequence DisplayName="Yap" sap2010:WorkflowViewState.IdRef="Sequence_4" />
+          </ActivityAction>
+        </auac:AnchorBase.Do>
+        <auac:AnchorBase.Selector>
+          <InArgument x:TypeArguments="x:String" />
+        </auac:AnchorBase.Selector>
+        <sap2010:WorkflowViewState.IdRef>AnchorBase_1</sap2010:WorkflowViewState.IdRef>
+      </auac:AnchorBase>
+      <sap2010:WorkflowViewState.IdRef>Sequence_5</sap2010:WorkflowViewState.IdRef>
+    </Sequence>
+    <sads:DebugSymbol.Symbol>dw1DOlxFbXB0eS54YW1sAA==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="200,97">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="AttachWindow_1" sap:VirtualizedContainerService.HintSize="366,229" />
+      <sap2010:ViewStateData Id="SetFocus_1" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="SetText_1" sap:VirtualizedContainerService.HintSize="366,137" />
+      <sap2010:ViewStateData Id="FindChildren_1" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="ElementExist_1" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="200,59" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="214,181">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="366,385" />
+      <sap2010:ViewStateData Id="Check_1" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="Click_2" sap:VirtualizedContainerService.HintSize="366,59" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="200,97">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="AnchorBase_1" sap:VirtualizedContainerService.HintSize="366,216" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="380,1704">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="394,1826">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence7_1" sap:VirtualizedContainerService.HintSize="434,1906" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
